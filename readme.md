@@ -1,1 +1,1 @@
-<img src="./NodeMCU_DHT11_Interfacing.png" width="1000">
+<img src="./NodeMCU_DHT11_Interfacing.png" width="500">
