@@ -1,7 +1,7 @@
 # [Система мониторинга температуры и влажности в помещении](http://iuriier.pythonanywhere.com/)
 ____
 ## Схема устройства
-<img src="./NodeMCU_DHT11_Interfacing.png" width="500">
+[](<img src="./NodeMCU_DHT11_Interfacing.png" width="500">)
 ## Система позволяет
 ____
 * видеть текущие температуру и влажность в помещении;
