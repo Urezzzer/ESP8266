@@ -1,1 +1,1 @@
-[![ESP8266_SCHEME](./NodeMCU_DHT11_Interfacing.png)]
+![ESP8266_SCHEME](./NodeMCU_DHT11_Interfacing.png)
