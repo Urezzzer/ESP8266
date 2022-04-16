@@ -19,7 +19,6 @@ delay = '15000'
 # DON'T TOUCH!!!
 @app.route('/load_data/', methods=['POST'])
 def load_data():
-    """Метод внесения данных"""
     if request.method == 'POST':
         temperature = request.form['temperature']
         humidity = request.form['humidity']
