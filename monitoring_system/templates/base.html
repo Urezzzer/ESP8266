@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title></title>
+  </head>
+  <body>
+    <ul class="navbar navbar-expand-md navbar-light bg-light nav nav-pills mb-3" id="pills-tab-main" role="tablist">
+        <!--<a class="navbar-brand" href="{{ url_for('index')}}">Главная</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>-->
+
+        <li class="nav-item">
+          <a class="nav-link active navbar-brand" id="main-tab" data-toggle="pill" href="#main-data" role="tab" aria-controls="main-data" aria-selected="true">Главная</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link navbar-brand" id="settings-tab" data-toggle="pill" href="#settiings-date" role="tab" aria-controls="settiings-date" aria-selected="false">Настройки</a>
+        </li>
+    </ul>
+
+    <div class="container tab-content" >
+      <div class="container tab-pane fade show active" style="margin-top: 30px;" id="main-data" role="tabpanel" aria-labelledby="main-tab">
+          <div class="row">
+              <div class="col-4">
+                  <div><b>Средняя температура за сутки: </b>{{ day_means['t_mean'] if day_means['t_mean'] else ' нет информации' }}</div>
+                  <div><b>Средняя температура за неделю:</b> {{ week_means['t_mean'] if week_means['t_mean'] else ' нет информации' }}</div>
+                  <div><b>Средняя температура за месяц:</b> {{ month_means['t_mean'] if month_means['t_mean'] else ' нет информации' }}</div>
+              </div>
+              <div class="col-4">
+                  <div><b>Средняя влажность за сутки:</b> {{ day_means['h_mean'] if day_means['h_mean'] else ' нет информации' }}</div>
+                  <div><b>Средняя влажность за неделю:</b> {{ week_means['h_mean'] if week_means['h_mean'] else ' нет информации' }}</div>
+                  <div><b>Средняя влажность за месяц:</b> {{ month_means['h_mean'] if month_means['h_mean'] else ' нет информации' }}</div>
+              </div>
+              <div class="col-4">
+                  <div><b>Текущая температура:</b> <span id="cur_temperature"></span> </div>
+                  <div><b>Текущая влажность:</b> <span id="cur_humidity"></span></div>
+              </div>
+          </div>
+          <hr>
+          <br/>
+          
+          <br/>
+
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="all-data-tab" data-toggle="pill" href="#all-data" role="tab" aria-controls="all-data" aria-selected="true">Все данные</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="time-date-tab" data-toggle="pill" href="#time-date" role="tab" aria-controls="time-date" aria-selected="false">История измерений</a>
+            </li>
+          </ul>
+
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="all-data" role="tabpanel" aria-labelledby="all-data-tab">
+              <div class="col-12">
+                    <form action = "http://iuriier.pythonanywhere.com/date_index/" method = "POST">
+                      <div class="form-group row">
+                          <label for="datetime-input" class="col-2 col-form-label">Дата</label>
+                          <div class="col-4">
+                            <input class="form-control" type="date" id="datetime-input" name="datetime">
+                          </div>
+                          <input type="reset" value="Очистить" class="btn btn-light col-2" style="margin-right: 10px;">
+                          <button type="submit" class="btn btn-primary col-2">Показать данные</button>
+                      </div>
+                    </form>
+                </div>
+
+                <div class="col">
+                      <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                                <th>Время</th>
+                                <th>Температура</th>
+                                <th>Влажность</th>
+                                <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for object in all_data %}
+                            <tr>
+                              <td>{{ object['time'] }}</td>
+                              <td>{{ object['t'] }}</td>
+                              <td>{{ object['h']}}</td>
+                                <td>
+                                    <form class="col-2" action = "http://iuriier.pythonanywhere.com/delete_values?dt={{ object['t'] }}" method="POST">
+                                      <button class="btn btn-danger">Удалить</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
+            </div>
+
+            <div class="tab-pane fade" id="time-date" role="tabpanel" aria-labelledby="time-date-tab">
+                <div class="row" style="text-align: center;">
+                  <div class="col-12">
+                      <form action = "http://iuriier.pythonanywhere.com/date" method = "POST">
+                          <div class="form-group row">
+                              <div class="col-3">Выберите тип показателя</div>
+                              <div class="col-3">Среднее <input type="radio" class="avg" name="format" value="avg"></div>
+                              <div class="col-3">Минимальное <input type="radio" class="min" name="format" value="min"></div>
+                              <div class="col-3"> Максимальное <input type="radio" class="max" name="format" value="max"></div>
+                              <div class="col-12">  </div>
+
+                              <label for="lower-datetime-local-input" class="col-5 col-form-label">Нижняя граница</label>
+                              <label for="upper-datetime-local-input" class="col-5 col-form-label">Верхняя граница</label>
+
+                              <div class="col-5">
+                                  <input class="form-control" type="datetime-local" id="lower-datetime-local-input" name="lower-datetime">
+                              </div>
+
+                              <div class="col-5">
+                                  <input class="form-control" type="datetime-local" id="upper-datetime-local-input" name="upper-datetime">
+                              </div>
+                              <button type="submit" class="btn btn-primary col-2">Показать данные</button>
+                          </div>
+                      </form>
+                  </div>
+                  <br/>
+                  <div class="col-6">
+                      <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th>Временные промежутки</th>
+                              <th class="name-th"> значение температуры</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for elem in temperatures %}
+                            <tr>
+                              <td>{{ elem['time'] }}</td>
+                              <td>{{ elem['t_mean'] }}</td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
+                  <div class="col-6">
+                      <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th>Временные промежутки</th>
+                              <th class="name-th"> значение влажности</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for elem in humidities %}
+                            <tr>
+                              <td>{{ elem['time'] }}</td>
+                              <td>{{ elem['h_mean'] }}</td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
+                  <form class="col-2" action = "http://iuriier.pythonanywhere.com/clear">
+                      <button class="btn btn-danger">Очистить</button>
+                  </form>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="container tab-pane fade" style="margin-top: 30px;" id="settiings-date" role="tabpanel" aria-labelledby="settings-tab">
+        <div class="row">
+            <div class="col-4" style="margin-top: 7px;">
+                <div><b>Текущая частота измерений:</b> {{ delay }} сек.</div>
+            </div>
+            <div class="col-7">
+                <form action = "http://iuriier.pythonanywhere.com" method = "POST">
+                    <div class="form-group row">
+                        <label for="example-number-input" class="col-2 col-form-label">Секунды</label>
+                        <div class="col-3">
+                            <input class="form-control" type="delay" id="delay" name="delay">
+                        </div>
+                        <button type="submit" class="btn btn-primary col-2">Применить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <script>
+        setInterval(()=>{
+            $.ajax({
+              url: "/cur_values",
+              type: "get",
+              success: function(response) {
+                $("#cur_temperature").html(response.t_mean?response.t_mean:"нет информации");
+                $("#cur_humidity").html(response.h_mean?response.h_mean:"нет информации");
+              }
+            })
+        }, 25000);
+
+        $.ajax({
+          url: "/get_format",
+          type: "get",
+          success: function(response) {
+            let format = response.format
+            let name = ''
+            if (format == 'avg') {
+              $("input.avg").prop('checked', true)
+              name = "Среднее "
+            }
+            if (format == 'min') {
+              $("input.min").prop('checked', true)
+              name = "Минимальное "
+            }
+            if (format == 'max') {
+              $("input.max").prop('checked', true)
+              name = "Максимальное "
+            }
+            $(".name-th").prepend(name)
+            console.log(response.format);
+          }
+        })
+
+        function deleteVal(value){
+            console.log(value);
+        }
+
+    </script>
+    <style>
+        .btn-primary {
+            color: #fff;
+            background-color: #007bff99 !important;
+            border-color: #007bff00 !important;
+            border-radius: 10px !important;
+        }
+
+    </style>
+  </body>
+</html>
