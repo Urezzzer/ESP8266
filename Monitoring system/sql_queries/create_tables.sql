@@ -1,9 +1,0 @@
-CREATE TABLE IF NOT EXISTS temperature(
-    t TIMESTAMP PRIMARY KEY,
-    value TEXT
-);
-
-CREATE TABLE IF NOT EXISTS humidity(
-    t TIMESTAMP PRIMARY KEY,
-    value TEXT
-);
