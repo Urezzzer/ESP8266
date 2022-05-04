@@ -1,5 +1,4 @@
-# [Система мониторинга температуры и влажности в помещении](http://iuriier.pythonanywhere.com/)
-[код здесь](./Monitoring%20system)
+# [Low-cost automatic temperature monitoring system with ESP](http://iuriier.pythonanywhere.com/)
 ____
 ## Схема устройства
 [<img src="./NodeMCU_DHT11_Interfacing.png" width="500">]()
