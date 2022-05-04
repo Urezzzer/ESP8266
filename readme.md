@@ -4,11 +4,11 @@ ____
 [<img src="./NodeMCU_DHT11_Interfacing.png" width="500">]()
 
 ## System
-homepage
-[<img src="/screenshots/home%20page.jpg" width="500">]()
+### Homepage
+[<img src="/screenshots/home%20page.jpg" width="800">]()
 
-requests history
-[<img src="/screenshots/history.jpg" width="500">]()
+### Requests history
+[<img src="/screenshots/history.jpg" width="800">]()
 
-settings
-[<img src="/screenshots/settings.jpg" width="500">]()
+### Settings
+[<img src="/screenshots/settings.jpg" width="800">]()
