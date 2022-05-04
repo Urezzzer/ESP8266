@@ -1,6 +1,6 @@
 # [Low-cost automatic temperature monitoring system with ESP8266](http://iuriier.pythonanywhere.com/)
 ### Stack
-Arduino + Flask + Jinja + Ajax
+**Arduino + Flask + Jinja + Ajax**
 ____
 ## The device schematics
 [<img src="./NodeMCU_DHT11_Interfacing.png" width="500">]()
