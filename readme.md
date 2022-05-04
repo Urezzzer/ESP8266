@@ -7,7 +7,7 @@ ____
 ### Homepage
 [<img src="/screenshots/home%20page.jpg" width="800">]()
 
-### Requests history
+### Measurements history
 [<img src="/screenshots/history.jpg" width="800">]()
 
 ### Settings
