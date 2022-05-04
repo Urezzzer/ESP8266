@@ -5,10 +5,10 @@ ____
 
 ## System
 homepage
-[<img src="./screenshots/homepage.png" width="500">]()
+[<img src="/screenshots/homepage.png" width="500">]()
 
 requests history
-[<img src="./screenshots/history.png" width="500">]()
+[<img src="/screenshots/history.png" width="500">]()
 
 settings
-[<img src="./screenshots/settings.png" width="500">]()
+[<img src="/screenshots/settings.png" width="500">]()
